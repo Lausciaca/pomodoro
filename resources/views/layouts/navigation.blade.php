@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="sticky top-0 z-40 border-b border-slate-200/80 bg-white/90 backdrop-blur">
+<nav x-data="{ open: false }" @keydown.escape.window="open = false" class="sticky top-0 z-50 border-b border-slate-200/80 bg-white/90 backdrop-blur">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex h-16 justify-between">
@@ -14,7 +14,7 @@
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                <div class="hidden space-x-4 whitespace-nowrap lg:-my-px lg:ms-6 lg:flex xl:space-x-8 xl:ms-10">
                     <x-nav-link :href="route('timer')" :active="request()->routeIs('timer')">
                         {{ __('Temporizador') }}
                     </x-nav-link>
@@ -31,14 +31,14 @@
             </div>
 
             <!-- Settings Dropdown -->
-            <div class="hidden sm:flex sm:items-center sm:ms-6">
+            <div class="hidden lg:flex lg:items-center lg:ms-6">
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
-                        <button class="inline-flex items-center gap-2 rounded-xl border border-transparent px-3 py-2 text-sm font-medium leading-4 text-slate-600 transition duration-150 ease-in-out hover:bg-slate-50 hover:text-slate-800 focus:outline-none">
-                            <span class="flex h-7 w-7 items-center justify-center rounded-full bg-slate-100 text-xs font-semibold uppercase text-slate-600">
+                        <button class="inline-flex max-w-full items-center gap-2 rounded-xl border border-transparent px-3 py-2 text-sm font-medium leading-4 text-slate-600 transition duration-150 ease-in-out hover:bg-slate-50 hover:text-slate-800 focus:outline-none">
+                            <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-slate-100 text-xs font-semibold uppercase text-slate-600">
                                 {{ mb_strtoupper(mb_substr(Auth::user()->name, 0, 1)) }}
                             </span>
-                            <div>{{ Auth::user()->name }}</div>
+                            <div class="hidden max-w-[120px] truncate xl:block">{{ Auth::user()->name }}</div>
 
                             <svg class="h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
@@ -66,7 +66,7 @@
             </div>
 
             <!-- Hamburger -->
-            <div class="-me-2 flex items-center sm:hidden">
+            <div class="-me-2 flex items-center lg:hidden">
                 <button @click="open = ! open" class="inline-flex items-center justify-center rounded-md p-2 text-slate-400 transition duration-150 ease-in-out hover:bg-slate-100 hover:text-slate-500 focus:bg-slate-100 focus:text-slate-500 focus:outline-none">
                     <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                         <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -77,8 +77,19 @@
         </div>
     </div>
 
-    <!-- Responsive Navigation Menu -->
-    <div :class="{'block': open, 'hidden': ! open}" class="hidden border-t border-slate-100 sm:hidden">
+    <!-- Responsive Navigation Menu: overlay, no empuja el contenido -->
+    <div
+        x-cloak
+        x-show="open"
+        x-transition:enter="transition ease-out duration-200"
+        x-transition:enter-start="opacity-0 -translate-y-2"
+        x-transition:enter-end="opacity-100 translate-y-0"
+        x-transition:leave="transition ease-in duration-150"
+        x-transition:leave-start="opacity-100 translate-y-0"
+        x-transition:leave-end="opacity-0 -translate-y-2"
+        @click.away="open = false"
+        class="absolute inset-x-0 top-full border-b border-slate-200 bg-white shadow-xl lg:hidden"
+    >
         <div class="space-y-1 px-3 pt-2 pb-3">
             <x-responsive-nav-link :href="route('timer')" :active="request()->routeIs('timer')">
                 {{ __('Temporizador') }}

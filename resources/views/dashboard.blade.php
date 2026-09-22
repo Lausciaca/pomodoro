@@ -1,11 +1,11 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <div>
+        <div class="flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
+            <div class="min-w-0">
                 <h2 class="page-title">Dashboard</h2>
                 <p class="page-subtitle">Tu progreso de hoy y resumen de la última semana.</p>
             </div>
-            <a href="{{ route('history.manual.create') }}" class="btn-primary self-start">
+            <a href="{{ route('history.manual.create') }}" class="btn-primary self-start sm:shrink-0">
                 <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                 </svg>
@@ -28,8 +28,8 @@
                 </div>
             @endif
 
-            <div class="grid grid-cols-1 gap-6 sm:grid-cols-3">
-                <div class="card card-body">
+            <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                <div class="card card-body min-w-0">
                     <p class="text-sm font-medium text-slate-500">Pomodoros hoy</p>
                     <p class="mt-2 flex items-baseline gap-1">
                         <span class="text-4xl font-bold tracking-tight text-slate-900">{{ $todayCount }}</span>
@@ -41,7 +41,7 @@
                     <p class="mt-2 text-xs text-slate-500">{{ $goalPercent }}% de tu meta diaria</p>
                 </div>
 
-                <div class="card card-body">
+                <div class="card card-body min-w-0">
                     <p class="text-sm font-medium text-slate-500">Minutos enfocados hoy</p>
                     <p class="mt-2 text-4xl font-bold tracking-tight text-slate-900">{{ $todayMinutes }}</p>
                     <p class="mt-4 text-xs text-slate-500">
@@ -49,7 +49,7 @@
                     </p>
                 </div>
 
-                <div class="card card-body">
+                <div class="card card-body min-w-0">
                     <p class="text-sm font-medium text-slate-500">Meta diaria</p>
                     @if ($goalReached)
                         <p class="mt-2 text-4xl font-bold tracking-tight text-emerald-600">¡Listo!</p>
@@ -66,8 +66,8 @@
                 </div>
             </div>
 
-            <div class="card card-body">
-                <div class="flex items-center justify-between">
+            <div class="card card-body min-w-0">
+                <div class="flex flex-wrap items-center justify-between gap-2">
                     <h3 class="section-title">Últimos 7 días</h3>
                     <span class="text-xs text-slate-400">Meta: {{ $dailyGoal }} pomodoros/día</span>
                 </div>
@@ -93,7 +93,7 @@
                 </div>
             </div>
 
-            <div class="card card-body">
+            <div class="card card-body min-w-0 max-w-full">
                 <h3 class="section-title">Historial de hoy</h3>
 
                 @if ($todaySessions->isEmpty())
@@ -106,8 +106,8 @@
                     </div>
                 @else
                     @php($seenBatches = [])
-                    <div class="mt-4 -mx-6 overflow-x-auto sm:mx-0">
-                        <table class="min-w-full divide-y divide-slate-200 text-sm">
+                    <div class="mt-4 -mx-6 max-w-full overflow-x-auto px-0 sm:mx-0">
+                        <table class="w-full min-w-[560px] divide-y divide-slate-200 text-sm">
                             <thead>
                                 <tr class="text-left text-xs uppercase tracking-wider text-slate-500">
                                     <th class="px-6 py-2 font-medium sm:px-0 sm:pr-4">Hora</th>
