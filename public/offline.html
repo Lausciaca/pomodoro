@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ef4444">
+        <title>Sin conexión · Pomodoro</title>
+        <style>
+            :root {
+                color-scheme: light dark;
+            }
+
+            body {
+                margin: 0;
+                min-height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-family: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+                background: #0f172a;
+                color: #f8fafc;
+                text-align: center;
+            }
+
+            .card {
+                padding: 2.5rem;
+                max-width: 22rem;
+            }
+
+            .dot {
+                width: 4rem;
+                height: 4rem;
+                margin: 0 auto 1.5rem;
+                border-radius: 9999px;
+                background: #ef4444;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.75rem;
+                font-weight: 700;
+            }
+
+            h1 {
+                font-size: 1.25rem;
+                margin: 0 0 0.5rem;
+            }
+
+            p {
+                font-size: 0.9rem;
+                color: #94a3b8;
+                margin: 0 0 1.5rem;
+            }
+
+            button {
+                border: 0;
+                border-radius: 0.5rem;
+                background: #ef4444;
+                color: #fff;
+                padding: 0.75rem 1.5rem;
+                font-size: 0.9rem;
+                font-weight: 600;
+                cursor: pointer;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="card">
+            <div class="dot">25</div>
+            <h1>Sin conexión</h1>
+            <p>No pudimos cargar la aplicación. Revisa tu conexión e inténtalo de nuevo.</p>
+            <button onclick="window.location.reload()">Reintentar</button>
+        </div>
+    </body>
+</html>
