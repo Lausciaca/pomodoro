@@ -90,11 +90,47 @@ class PomodoroIsolationTest extends TestCase
             'short_break_minutes' => 10,
             'long_break_minutes' => 30,
             'cycles_before_long_break' => 3,
+            'daily_goal' => 12,
             'notifications_enabled' => '1',
         ])->assertRedirect(route('settings.edit'));
 
-        $this->assertSame(45, UserSetting::forUser($userA->id)->study_minutes);
+        $settings = UserSetting::forUser($userA->id);
+
+        $this->assertSame(45, $settings->study_minutes);
+        $this->assertSame(12, $settings->daily_goal);
         $this->assertSame(25, UserSetting::forUser($userB->id)->study_minutes);
+        $this->assertSame(8, UserSetting::forUser($userB->id)->daily_goal);
+    }
+
+    public function test_daily_goal_is_validated_when_updating_settings(): void
+    {
+        $user = User::factory()->create();
+
+        $this->actingAs($user)->put(route('settings.update'), [
+            'study_minutes' => 25,
+            'short_break_minutes' => 5,
+            'long_break_minutes' => 15,
+            'cycles_before_long_break' => 4,
+            'daily_goal' => 0,
+        ])->assertSessionHasErrors('daily_goal');
+    }
+
+    public function test_dashboard_and_timer_show_the_custom_daily_goal(): void
+    {
+        $user = User::factory()->create();
+
+        UserSetting::forUser($user->id)->update(['daily_goal' => 6]);
+
+        $this->actingAs($user)
+            ->get(route('dashboard'))
+            ->assertOk()
+            ->assertSee('6')
+            ->assertSee('Meta diaria');
+
+        $this->actingAs($user)
+            ->getJson(route('pomodoros.today'))
+            ->assertOk()
+            ->assertJson(['daily_goal' => 6]);
     }
 
     public function test_manual_history_is_stored_for_the_authenticated_user_and_counted(): void

@@ -1,4 +1,4 @@
-const CACHE = 'pomodoro-v1';
+const CACHE = 'pomodoro-v2';
 const OFFLINE_URL = '/offline.html';
 const PRECACHE = [
     OFFLINE_URL,
@@ -27,6 +27,24 @@ self.addEventListener('activate', (event) => {
     );
 });
 
+self.addEventListener('notificationclick', (event) => {
+    event.notification.close();
+
+    event.waitUntil(
+        self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then((clientList) => {
+            for (const client of clientList) {
+                if ('focus' in client) {
+                    return client.focus();
+                }
+            }
+
+            if (self.clients.openWindow) {
+                return self.clients.openWindow('/timer');
+            }
+        })
+    );
+});
+
 self.addEventListener('fetch', (event) => {
     const { request } = event;
 
@@ -37,6 +55,12 @@ self.addEventListener('fetch', (event) => {
     const url = new URL(request.url);
 
     if (url.origin !== self.location.origin) {
+        return;
+    }
+
+    // Never cache API responses or authenticated JSON: always go to the network
+    // so the user sees fresh data.
+    if (url.pathname.startsWith('/api/') || request.headers.get('accept')?.includes('application/json')) {
         return;
     }
 

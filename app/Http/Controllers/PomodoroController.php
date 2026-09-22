@@ -27,6 +27,11 @@ class PomodoroController extends Controller
 
         $settings = UserSetting::forUser($userId);
 
+        $dailyGoal = max(1, $settings->daily_goal);
+        $goalPercent = (int) min(100, round($todayCount / $dailyGoal * 100));
+        $goalReached = $todayCount >= $dailyGoal;
+        $goalRemaining = max(0, $dailyGoal - $todayCount);
+
         $week = PomodoroSession::ownedBy($userId)
             ->focus()
             ->completed()
@@ -55,6 +60,10 @@ class PomodoroController extends Controller
             'todaySessions',
             'settings',
             'weekDays',
+            'dailyGoal',
+            'goalPercent',
+            'goalReached',
+            'goalRemaining',
         ));
     }
 
@@ -84,11 +93,17 @@ class PomodoroController extends Controller
 
         $todayQuery = PomodoroSession::ownedBy($userId)->today()->focus()->completed();
 
+        $settings = UserSetting::forUser($userId);
+        $dailyGoal = max(1, $settings->daily_goal);
+        $todayCount = (clone $todayQuery)->count();
+
         return response()->json([
             'ok' => true,
             'id' => $session->id,
-            'today_count' => (clone $todayQuery)->count(),
+            'today_count' => $todayCount,
             'today_minutes' => (int) (clone $todayQuery)->sum('duration_minutes'),
+            'daily_goal' => $dailyGoal,
+            'goal_reached' => $todayCount >= $dailyGoal,
         ]);
     }
 
@@ -98,9 +113,15 @@ class PomodoroController extends Controller
 
         $todayQuery = PomodoroSession::ownedBy($userId)->today()->focus()->completed();
 
+        $settings = UserSetting::forUser($userId);
+        $dailyGoal = max(1, $settings->daily_goal);
+        $todayCount = (clone $todayQuery)->count();
+
         return response()->json([
-            'today_count' => (clone $todayQuery)->count(),
+            'today_count' => $todayCount,
             'today_minutes' => (int) (clone $todayQuery)->sum('duration_minutes'),
+            'daily_goal' => $dailyGoal,
+            'goal_reached' => $todayCount >= $dailyGoal,
             'sessions' => (clone $todayQuery)
                 ->latest('completed_at')
                 ->get(['id', 'duration_minutes', 'completed_at', 'source']),

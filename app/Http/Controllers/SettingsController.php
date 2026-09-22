@@ -22,6 +22,7 @@ class SettingsController extends Controller
             'short_break_minutes' => ['required', 'integer', 'min:1', 'max:60'],
             'long_break_minutes' => ['required', 'integer', 'min:1', 'max:120'],
             'cycles_before_long_break' => ['required', 'integer', 'min:1', 'max:12'],
+            'daily_goal' => ['required', 'integer', 'min:1', 'max:50'],
             'auto_start_breaks' => ['boolean'],
             'auto_start_pomodoros' => ['boolean'],
             'notifications_enabled' => ['boolean'],

@@ -1,26 +1,26 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Cargar historial manual
-        </h2>
+        <div>
+            <h2 class="page-title">Cargar historial manual</h2>
+            <p class="page-subtitle">Registrá pomodoros que completaste fuera de la app.</p>
+        </div>
     </x-slot>
 
     <div class="py-8">
-        <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
+        <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
             <div
-                class="bg-white shadow-sm sm:rounded-2xl p-6 sm:p-10"
+                class="card card-body"
                 x-data="{
-                    date: '{{ now()->toDateString() }}',
-                    quantity: 1,
-                    duration: {{ $settings->study_minutes }},
+                    date: '{{ old('date', now()->toDateString()) }}',
+                    quantity: {{ (int) old('quantity', 1) }},
+                    duration: {{ (int) old('duration_minutes', $settings->study_minutes) }},
                     get total() {
                         return Number(this.quantity) * Number(this.duration);
                     }
                 }"
             >
-                <p class="text-sm text-gray-600">
-                    Registra pomodoros que completaste en otra app o fuera de la computadora.
-                    Se agregarán a las estadísticas de la fecha elegida.
+                <p class="text-sm text-slate-600">
+                    Se agregarán a las estadísticas de la fecha elegida y contarán para tu meta diaria.
                 </p>
 
                 <form method="POST" action="{{ route('history.manual.store') }}" class="mt-8 space-y-6">
@@ -85,15 +85,15 @@
                         <x-input-error :messages="$errors->get('note')" class="mt-2" />
                     </div>
 
-                    <div class="rounded-lg bg-red-50 p-4 text-sm text-red-700">
+                    <div class="rounded-xl bg-brand-50 p-4 text-sm text-brand-700">
                         Registrarás <span class="font-semibold" x-text="quantity"></span> pomodoros de
                         <span class="font-semibold" x-text="duration"></span> min =
                         <span class="font-semibold" x-text="total"></span> minutos el
                         <span class="font-semibold" x-text="date"></span>.
                     </div>
 
-                    <div class="flex items-center justify-between">
-                        <a href="{{ route('dashboard') }}" class="text-sm text-gray-500 hover:text-gray-700">
+                    <div class="flex items-center justify-between border-t border-slate-100 pt-6">
+                        <a href="{{ route('dashboard') }}" class="text-sm font-medium text-slate-500 hover:text-slate-700">
                             Volver al dashboard
                         </a>
                         <x-primary-button>Guardar historial</x-primary-button>

@@ -21,18 +21,21 @@ class TimerController extends Controller
 
         $todayCount = (clone $todayQuery)->count();
         $todayMinutes = (int) (clone $todayQuery)->sum('duration_minutes');
+        $dailyGoal = max(1, $settings->daily_goal);
 
         $timerConfig = [
             'study' => $settings->study_minutes,
             'shortBreak' => $settings->short_break_minutes,
             'longBreak' => $settings->long_break_minutes,
             'cycles' => $settings->cycles_before_long_break,
+            'dailyGoal' => $dailyGoal,
+            'todayCount' => $todayCount,
             'autoStartBreaks' => $settings->auto_start_breaks,
             'autoStartPomodoros' => $settings->auto_start_pomodoros,
             'notifications' => $settings->notifications_enabled,
             'sound' => $settings->sound_enabled,
         ];
 
-        return view('timer', compact('settings', 'todayCount', 'todayMinutes', 'timerConfig'));
+        return view('timer', compact('settings', 'todayCount', 'todayMinutes', 'dailyGoal', 'timerConfig'));
     }
 }

@@ -57,6 +57,7 @@ class User extends Authenticatable
                 'short_break_minutes' => 5,
                 'long_break_minutes' => 15,
                 'cycles_before_long_break' => 4,
+                'daily_goal' => 8,
                 'auto_start_breaks' => true,
                 'auto_start_pomodoros' => false,
                 'notifications_enabled' => true,
