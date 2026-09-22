@@ -26,7 +26,7 @@
                 <form method="POST" action="{{ route('history.manual.store') }}" class="mt-8 space-y-6">
                     @csrf
 
-                    <div class="grid grid-cols-1 gap-6 sm:grid-cols-3">
+                    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
                         <div>
                             <x-input-label for="date" value="Fecha" />
                             <x-text-input
