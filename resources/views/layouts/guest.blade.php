@@ -39,7 +39,7 @@
         <div class="flex min-h-screen flex-col items-center justify-center bg-slate-100 px-6 py-10 dark:bg-slate-950">
             <a href="/" class="flex items-center gap-2">
                 <span class="flex h-11 w-11 items-center justify-center rounded-2xl bg-brand-50 text-brand-600">
-                    <x-application-logo class="h-4 w-4" />
+                    <x-application-logo class="h-full w-full rounded-lg" />
                 </span>
                 <span class="text-lg font-semibold tracking-tight text-slate-900 dark:text-slate-100">Pomodoro</span>
             </a>

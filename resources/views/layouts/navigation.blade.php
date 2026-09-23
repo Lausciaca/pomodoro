@@ -7,7 +7,7 @@
                 <div class="flex shrink-0 items-center gap-2">
                     <a href="{{ route('dashboard') }}" class="flex items-center gap-2">
                         <span class="flex h-9 w-9 items-center justify-center rounded-xl bg-brand-50 text-brand-600">
-                            <x-application-logo class="h-3 w-3 fill-none" />
+                            <x-application-logo class="h-full w-full rounded-lg" />
                         </span>
                         <span class="text-base font-semibold tracking-tight text-slate-900 dark:text-slate-100">Pomodoro</span>
                     </a>
