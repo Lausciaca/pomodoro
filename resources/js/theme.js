@@ -80,7 +80,7 @@ if (window.matchMedia) {
         if (store && store.mode === 'system') {
             store.effective = applyTheme('system');
         } else if (!store) {
-            applyTheme('system');
+            applyTheme(getStoredMode());
         }
     };
 

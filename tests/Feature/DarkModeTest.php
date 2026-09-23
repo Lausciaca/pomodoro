@@ -105,6 +105,23 @@ class DarkModeTest extends TestCase
         $this->assertStringContainsString('dark:', $content);
     }
 
+    public function test_theme_os_change_before_store_init_honors_stored_mode(): void
+    {
+        $content = file_get_contents(resource_path('js/theme.js'));
+        $normalized = preg_replace('/\s+/', ' ', $content);
+
+        $this->assertStringContainsString('else if (!store) { applyTheme(getStoredMode());', $normalized);
+    }
+
+    public function test_theme_os_listener_follows_system_and_supports_legacy_api(): void
+    {
+        $content = file_get_contents(resource_path('js/theme.js'));
+
+        $this->assertStringContainsString("store.mode === 'system'", $content);
+        $this->assertStringContainsString('addEventListener', $content);
+        $this->assertStringContainsString('addListener', $content);
+    }
+
     public function test_offline_page_adapts_to_light_scheme(): void
     {
         $content = file_get_contents(public_path('offline.html'));
