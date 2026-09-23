@@ -27,8 +27,8 @@
         <!-- Recuérdame -->
         <div class="block mt-4">
             <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-brand-600 shadow-sm focus:ring-brand-500" name="remember">
-                <span class="ms-2 text-sm text-gray-600">{{ __('Recuérdame') }}</span>
+                <input id="remember_me" type="checkbox" class="rounded border-slate-300 text-brand-600 shadow-sm focus:ring-brand-500 dark:border-slate-700 dark:bg-slate-900" name="remember">
+                <span class="ms-2 text-sm text-slate-600 dark:text-slate-400">{{ __('Recuérdame') }}</span>
             </label>
         </div>
 
@@ -38,13 +38,13 @@
             </x-primary-button>
             <div class="flex gap-2">
                 @if (Route::has('password.request'))
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500" href="{{ route('register') }}">
+                    <a class="underline text-sm text-slate-600 hover:text-slate-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500 dark:text-slate-400 dark:hover:text-slate-200 dark:focus:ring-offset-slate-900" href="{{ route('register') }}">
                         {{ __('¿Aún no tenés cuenta?') }}
                     </a>
                 @endif
-                <p class=" text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500">O</p>
+                <p class=" text-sm text-slate-600 dark:text-slate-400 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500">O</p>
                 @if (Route::has('password.request'))
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500" href="{{ route('password.request') }}">
+                    <a class="underline text-sm text-slate-600 hover:text-slate-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500 dark:text-slate-400 dark:hover:text-slate-200 dark:focus:ring-offset-slate-900" href="{{ route('password.request') }}">
                         {{ __('¿Olvidaste tu contraseña?') }}
                     </a>
                 @endif

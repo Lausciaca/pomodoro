@@ -34,7 +34,7 @@
 
                     <section>
                         <h3 class="section-title">Duraciones</h3>
-                        <p class="mt-1 text-sm text-slate-500">Definí cuánto dura cada bloque de trabajo y descanso.</p>
+                        <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">Definí cuánto dura cada bloque de trabajo y descanso.</p>
 
                         <div class="mt-5 grid grid-cols-1 gap-6 sm:grid-cols-2">
                             <div>
@@ -98,16 +98,16 @@
                             </div>
                         </div>
 
-                        <div class="mt-5 rounded-xl bg-slate-50 p-4 text-sm text-slate-600">
+                        <div class="mt-5 rounded-xl bg-slate-50 p-4 text-sm text-slate-600 dark:bg-slate-800 dark:text-slate-300">
                             Un ciclo completo dura
-                            <span class="font-semibold text-slate-900" x-text="cycleMinutes"></span> minutos
+                            <span class="font-semibold text-slate-900 dark:text-slate-100" x-text="cycleMinutes"></span> minutos
                             (<span x-text="cycles"></span> pomodoros + descansos).
                         </div>
                     </section>
 
-                    <section class="border-t border-slate-100 pt-8">
+                    <section class="border-t border-slate-100 pt-8 dark:border-slate-800">
                         <h3 class="section-title">Meta diaria</h3>
-                        <p class="mt-1 text-sm text-slate-500">¿Cuántos pomodoros querés completar por día?</p>
+                        <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">¿Cuántos pomodoros querés completar por día?</p>
 
                         <div class="mt-5 grid grid-cols-1 gap-6 sm:grid-cols-2">
                             <div>
@@ -125,46 +125,46 @@
                                 <x-input-error :messages="$errors->get('daily_goal')" class="mt-2" />
                             </div>
                             <div class="flex items-end">
-                                <p class="text-xs text-slate-500">
+                                <p class="text-xs text-slate-500 dark:text-slate-400">
                                     Es la referencia que verás en el dashboard y el temporizador para seguir tu progreso.
                                 </p>
                             </div>
                         </div>
                     </section>
 
-                    <section class="border-t border-slate-100 pt-8">
+                    <section class="border-t border-slate-100 pt-8 dark:border-slate-800">
                         <h3 class="section-title">Automatización</h3>
-                        <p class="mt-1 text-sm text-slate-500">Controlá cómo se encadenan los bloques.</p>
+                        <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">Controlá cómo se encadenan los bloques.</p>
 
                         <div class="mt-5 space-y-4">
                             <label class="flex items-start gap-3">
-                                <input type="checkbox" name="auto_start_breaks" value="1" class="mt-0.5 rounded border-slate-300 text-brand-600 focus:ring-brand-500"
+                                <input type="checkbox" name="auto_start_breaks" value="1" class="mt-0.5 rounded border-slate-300 text-brand-600 focus:ring-brand-500 dark:border-slate-600 dark:bg-slate-900"
                                     @checked($settings->auto_start_breaks)>
-                                <span class="text-sm text-slate-700">Iniciar automáticamente los descansos</span>
+                                <span class="text-sm text-slate-700 dark:text-slate-300">Iniciar automáticamente los descansos</span>
                             </label>
 
                             <label class="flex items-start gap-3">
-                                <input type="checkbox" name="auto_start_pomodoros" value="1" class="mt-0.5 rounded border-slate-300 text-brand-600 focus:ring-brand-500"
+                                <input type="checkbox" name="auto_start_pomodoros" value="1" class="mt-0.5 rounded border-slate-300 text-brand-600 focus:ring-brand-500 dark:border-slate-600 dark:bg-slate-900"
                                     @checked($settings->auto_start_pomodoros)>
-                                <span class="text-sm text-slate-700">Iniciar automáticamente el siguiente pomodoro</span>
+                                <span class="text-sm text-slate-700 dark:text-slate-300">Iniciar automáticamente el siguiente pomodoro</span>
                             </label>
                         </div>
                     </section>
 
-                    <section class="border-t border-slate-100 pt-8">
+                    <section class="border-t border-slate-100 pt-8 dark:border-slate-800">
                         <h3 class="section-title">Notificaciones y sonido</h3>
-                        <p class="mt-1 text-sm text-slate-500">Recibí un aviso cuando termine cada bloque.</p>
+                        <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">Recibí un aviso cuando termine cada bloque.</p>
 
                         <div class="mt-5 space-y-4" data-role="notifications-panel">
                             <label class="flex items-start gap-3">
                                 <input type="checkbox" name="notifications_enabled" value="1" data-role="notifications-toggle"
-                                    class="mt-0.5 rounded border-slate-300 text-brand-600 focus:ring-brand-500"
+                                    class="mt-0.5 rounded border-slate-300 text-brand-600 focus:ring-brand-500 dark:border-slate-600 dark:bg-slate-900"
                                     @checked($settings->notifications_enabled)>
-                                <span class="text-sm text-slate-700">Notificaciones de escritorio</span>
+                                <span class="text-sm text-slate-700 dark:text-slate-300">Notificaciones de escritorio</span>
                             </label>
 
-                            <div class="flex flex-wrap items-center gap-3 rounded-xl bg-slate-50 px-4 py-3">
-                                <span data-role="notification-status" class="text-xs font-medium text-amber-600">Permiso pendiente</span>
+                            <div class="flex flex-wrap items-center gap-3 rounded-xl bg-slate-50 px-4 py-3 dark:bg-slate-800">
+                                <span data-role="notification-status" class="text-xs font-medium text-amber-600 dark:text-amber-400">Permiso pendiente</span>
                                 <div class="flex flex-wrap gap-2">
                                     <button type="button" data-role="request-notifications" class="btn-secondary px-3 py-1.5 text-xs">
                                         Activar notificaciones
@@ -176,14 +176,14 @@
                             </div>
 
                             <label class="flex items-start gap-3">
-                                <input type="checkbox" name="sound_enabled" value="1" class="mt-0.5 rounded border-slate-300 text-brand-600 focus:ring-brand-500"
+                                <input type="checkbox" name="sound_enabled" value="1" class="mt-0.5 rounded border-slate-300 text-brand-600 focus:ring-brand-500 dark:border-slate-600 dark:bg-slate-900"
                                     @checked($settings->sound_enabled)>
-                                <span class="text-sm text-slate-700">Alerta de sonido</span>
+                                <span class="text-sm text-slate-700 dark:text-slate-300">Alerta de sonido</span>
                             </label>
                         </div>
                     </section>
 
-                    <div class="flex items-center justify-end border-t border-slate-100 pt-6">
+                    <div class="flex items-center justify-end border-t border-slate-100 pt-6 dark:border-slate-800">
                         <x-primary-button>Guardar configuración</x-primary-button>
                     </div>
                 </form>

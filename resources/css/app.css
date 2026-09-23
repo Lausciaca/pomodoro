@@ -7,18 +7,22 @@
         display: none !important;
     }
 
+    :root {
+        color-scheme: light dark;
+    }
+
     html {
         -webkit-tap-highlight-color: transparent;
     }
 
     body {
-        @apply text-slate-800;
+        @apply text-slate-800 dark:text-slate-200;
     }
 }
 
 @layer components {
     .card {
-        @apply rounded-2xl bg-white shadow-card ring-1 ring-slate-900/5;
+        @apply rounded-2xl bg-white shadow-card ring-1 ring-slate-900/5 dark:bg-slate-900 dark:ring-white/10;
     }
 
     .card-body {
@@ -26,26 +30,28 @@
     }
 
     .page-title {
-        @apply text-xl font-semibold tracking-tight text-slate-900;
+        @apply text-xl font-semibold tracking-tight text-slate-900 dark:text-slate-100;
     }
 
     .page-subtitle {
-        @apply mt-1 text-sm text-slate-500;
+        @apply mt-1 text-sm text-slate-500 dark:text-slate-400;
     }
 
     .section-title {
-        @apply text-sm font-semibold text-slate-700;
+        @apply text-sm font-semibold text-slate-700 dark:text-slate-200;
     }
 
     .btn {
         @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition
             focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2
+            dark:focus-visible:ring-offset-slate-950
             disabled:pointer-events-none disabled:opacity-50;
     }
 
     .btn-primary {
         @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition
             focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2
+            dark:focus-visible:ring-offset-slate-950
             disabled:pointer-events-none disabled:opacity-50
             bg-brand-600 text-white shadow-sm hover:bg-brand-500 active:bg-brand-700;
     }
@@ -53,8 +59,10 @@
     .btn-secondary {
         @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition
             focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2
+            dark:focus-visible:ring-offset-slate-950
             disabled:pointer-events-none disabled:opacity-50
-            bg-white text-slate-700 shadow-sm ring-1 ring-inset ring-slate-300 hover:bg-slate-50;
+            bg-white text-slate-700 shadow-sm ring-1 ring-inset ring-slate-300 hover:bg-slate-50
+            dark:bg-slate-900 dark:text-slate-200 dark:ring-slate-700 dark:hover:bg-slate-800;
     }
 
     .badge {
@@ -62,6 +70,38 @@
     }
 
     .alert-success {
-        @apply flex items-start gap-2 rounded-2xl bg-emerald-50 px-4 py-3 text-sm text-emerald-700 ring-1 ring-inset ring-emerald-600/20;
+        @apply flex items-start gap-2 rounded-2xl bg-emerald-50 px-4 py-3 text-sm text-emerald-700 ring-1 ring-inset ring-emerald-600/20 dark:bg-emerald-950/60 dark:text-emerald-300 dark:ring-emerald-500/20;
     }
+}
+
+/* Checkboxes: a checked box always shows the primary color (via the
+   text-brand-600 currentColor), in both modes and on hover/focus.
+   Plain element selectors beat the forms plugin :where() rules, and the
+   .dark-qualified selectors beat the dark: utilities that otherwise hide
+   the primary fill on hover. Only background-color/border-color are set
+   so the plugin tick glyph (background-image) is preserved. */
+input[type='checkbox']:checked,
+input[type='checkbox']:checked:hover,
+input[type='checkbox']:checked:focus {
+    border-color: transparent;
+    background-color: currentColor;
+}
+
+.dark input[type='checkbox']:checked,
+.dark input[type='checkbox']:checked:hover,
+.dark input[type='checkbox']:checked:focus {
+    border-color: transparent;
+    background-color: currentColor;
+}
+
+/* Unchecked boxes keep their current surface on hover: neutral border and
+   surface in each mode, never the primary color. */
+input[type='checkbox']:not(:checked):hover {
+    border-color: #94a3b8;
+    background-color: #ffffff;
+}
+
+.dark input[type='checkbox']:not(:checked):hover {
+    border-color: #475569;
+    background-color: #0f172a;
 }

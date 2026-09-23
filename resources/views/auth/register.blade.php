@@ -43,7 +43,7 @@
             <x-primary-button class="w-full mb-2">
                 {{ __('Crear cuenta') }}
             </x-primary-button>
-            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500" href="{{ route('login') }}">
+            <a class="underline text-sm text-slate-600 hover:text-slate-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500 dark:text-slate-400 dark:hover:text-slate-200 dark:focus:ring-offset-slate-900" href="{{ route('login') }}">
                 {{ __('¿Ya tenés cuenta?') }}
             </a>
 
