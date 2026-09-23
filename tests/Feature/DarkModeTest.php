@@ -122,6 +122,35 @@ class DarkModeTest extends TestCase
         $this->assertStringContainsString('addListener', $content);
     }
 
+    public function test_checked_checkboxes_keep_primary_in_both_modes(): void
+    {
+        $content = file_get_contents(resource_path('css/app.css'));
+
+        $this->assertStringContainsString("input[type='checkbox']:checked", $content);
+        $this->assertStringContainsString('.dark input[type', $content);
+        $this->assertStringContainsString('background-color: currentColor', $content);
+        $this->assertStringContainsString('border-color: transparent', $content);
+    }
+
+    public function test_unchecked_checkbox_hover_stays_neutral(): void
+    {
+        $content = file_get_contents(resource_path('css/app.css'));
+
+        $this->assertStringContainsString(':not(:checked):hover', $content);
+        $this->assertStringContainsString('#0f172a', $content);
+    }
+
+    public function test_settings_form_checkboxes_use_brand_accent(): void
+    {
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)->get('/settings');
+
+        $response->assertOk();
+        $response->assertSee('type="checkbox"', false);
+        $response->assertSee('text-brand-600', false);
+    }
+
     public function test_offline_page_adapts_to_light_scheme(): void
     {
         $content = file_get_contents(public_path('offline.html'));
