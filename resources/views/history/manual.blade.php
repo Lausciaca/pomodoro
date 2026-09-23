@@ -19,7 +19,7 @@
                     }
                 }"
             >
-                <p class="text-sm text-slate-600">
+                <p class="text-sm text-slate-600 dark:text-slate-300">
                     Se agregarán a las estadísticas de la fecha elegida y contarán para tu meta diaria.
                 </p>
 
@@ -85,15 +85,15 @@
                         <x-input-error :messages="$errors->get('note')" class="mt-2" />
                     </div>
 
-                    <div class="rounded-xl bg-brand-50 p-4 text-sm text-brand-700">
+                    <div class="rounded-xl bg-brand-50 p-4 text-sm text-brand-700 dark:bg-brand-500/10 dark:text-brand-300">
                         Registrarás <span class="font-semibold" x-text="quantity"></span> pomodoros de
                         <span class="font-semibold" x-text="duration"></span> min =
                         <span class="font-semibold" x-text="total"></span> minutos el
                         <span class="font-semibold" x-text="date"></span>.
                     </div>
 
-                    <div class="flex items-center justify-between border-t border-slate-100 pt-6">
-                        <a href="{{ route('dashboard') }}" class="text-sm font-medium text-slate-500 hover:text-slate-700">
+                    <div class="flex items-center justify-between border-t border-slate-100 pt-6 dark:border-slate-800">
+                        <a href="{{ route('dashboard') }}" class="text-sm font-medium text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200">
                             Volver al dashboard
                         </a>
                         <x-primary-button>Guardar historial</x-primary-button>
