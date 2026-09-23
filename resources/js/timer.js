@@ -7,10 +7,32 @@ const PHASE_LABELS = {
 };
 
 const PHASE_THEME = {
-    focus: { color: '#dc2626', soft: '#fee2e2' },
-    short_break: { color: '#059669', soft: '#d1fae5' },
-    long_break: { color: '#2563eb', soft: '#dbeafe' },
+    focus: {
+        light: { color: '#dc2626', soft: '#fee2e2' },
+        dark: { color: '#f87171', soft: '#7f1d1d' },
+    },
+    short_break: {
+        light: { color: '#059669', soft: '#d1fae5' },
+        dark: { color: '#34d399', soft: '#064e3b' },
+    },
+    long_break: {
+        light: { color: '#2563eb', soft: '#dbeafe' },
+        dark: { color: '#60a5fa', soft: '#1e3a8a' },
+    },
 };
+
+const TRACK_STROKE = { light: '#e2e8f0', dark: '#1e293b' };
+const EMPTY_DOT = { light: '#cbd5e1', dark: '#334155' };
+
+function isDark() {
+    return document.documentElement.classList.contains('dark');
+}
+
+function currentPhaseTheme(phase) {
+    const palette = PHASE_THEME[phase] || PHASE_THEME.focus;
+
+    return palette[isDark() ? 'dark' : 'light'];
+}
 
 let audioCtx = null;
 
@@ -36,6 +58,7 @@ function initPomodoroTimer() {
         time: root.querySelector('[data-role="time"]'),
         hint: root.querySelector('[data-role="hint"]'),
         progress: root.querySelector('[data-role="progress"]'),
+        track: root.querySelector('[data-role="track"]'),
         cycles: root.querySelector('[data-role="cycles"]'),
         toggle: root.querySelector('[data-role="toggle"]'),
         reset: root.querySelector('[data-role="reset"]'),
@@ -98,6 +121,8 @@ function initPomodoroTimer() {
 
     refreshNotificationBanner();
     render();
+
+    window.addEventListener('theme-change', render);
 
     if (state.running) {
         startTicker();
@@ -277,10 +302,14 @@ function initPomodoroTimer() {
     }
 
     function applyTheme() {
-        const theme = PHASE_THEME[state.phase] || PHASE_THEME.focus;
+        const theme = currentPhaseTheme(state.phase);
 
         if (el.phase) {
             el.phase.style.color = theme.color;
+        }
+
+        if (el.track) {
+            el.track.style.stroke = isDark() ? TRACK_STROKE.dark : TRACK_STROKE.light;
         }
 
         if (el.progress) {
@@ -302,7 +331,8 @@ function initPomodoroTimer() {
         }
 
         const total = config.cycles || 4;
-        const theme = PHASE_THEME[state.phase] || PHASE_THEME.focus;
+        const theme = currentPhaseTheme(state.phase);
+        const emptyColor = isDark() ? EMPTY_DOT.dark : EMPTY_DOT.light;
         let filled = state.cycleCount % total;
 
         if (state.phase === 'long_break' && state.cycleCount > 0 && state.cycleCount % total === 0) {
@@ -314,7 +344,7 @@ function initPomodoroTimer() {
         for (let i = 0; i < total; i++) {
             const dot = document.createElement('span');
             dot.className = 'h-2.5 w-2.5 rounded-full transition';
-            dot.style.backgroundColor = i < filled ? theme.color : '#cbd5e1';
+            dot.style.backgroundColor = i < filled ? theme.color : emptyColor;
             el.cycles.appendChild(dot);
         }
     }
@@ -339,10 +369,10 @@ function initPomodoroTimer() {
         if (el.goalMessage) {
             if (count >= goal) {
                 el.goalMessage.textContent = '¡Meta diaria cumplida!';
-                el.goalMessage.className = 'mt-2 text-xs font-medium text-emerald-600';
+                el.goalMessage.className = 'mt-2 text-xs font-medium text-emerald-600 dark:text-emerald-400';
             } else {
                 el.goalMessage.textContent = 'Te faltan ' + (goal - count) + ' pomodoros para tu meta de hoy.';
-                el.goalMessage.className = 'mt-2 text-xs text-slate-500';
+                el.goalMessage.className = 'mt-2 text-xs text-slate-500 dark:text-slate-400';
             }
         }
     }
